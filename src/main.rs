@@ -35,7 +35,6 @@ impl Game {
 
 impl Grid {
     fn new(height: i32, width: i32) -> Grid {
-        println!("Grid.new({}, {})", &height, &width);
         Grid { fields: vec![Status::Dead; (height * width) as usize], height, width }
     }
     fn print(&self) {
@@ -63,11 +62,9 @@ impl Grid {
         self.fields[pos_in_1d].clone()
     }
     fn is_out_of_range(&self, pos: &Pos) -> bool {
-        println!("is_out_of_range");
         if (*pos).h >= self.height || (*pos).h < 0 || (*pos).w >= self.width || (*pos).w < 0 { true } else { false }
     }
     fn is_alive(&self, pos: &Pos) -> bool {
-        println!("is_alive");
         if self.is_out_of_range(pos) { return false }
         match self.get(pos) {
             Status::Alive => { true }
@@ -126,7 +123,6 @@ fn main() {
     let mut game = Game::new(height, width, alive.chars().collect(), dead.chars().collect());
     for h in 0..height {
         let line = get_line();
-        println!("ORIGINAL: {}", &line);
         for w in 0..width {
             let pos = Pos {h,w};
             let value = match line.chars().nth(w as usize).unwrap() {
@@ -137,7 +133,6 @@ fn main() {
             game.grid.set(&pos, value);
         }
     }
-    game.grid.print();
     for i in 0..n {
         game.new_round();
     }
